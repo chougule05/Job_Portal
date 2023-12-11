@@ -1,0 +1,51 @@
+<!-- update_job.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Job</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+  {% if 'username' in session and (session['role'] == 'employer' or session['role'] == 'admin' )%}
+    <h1 class="mb-4">Update Job</h1>
+    <form action="{{ url_for('update_job', job_id=job.id) }}" method="post">
+        <div class="form-group">
+            <label for="title">Job Title:</label>
+            <input type="text" class="form-control" name="title" value="{{ job.title }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="category">Job Category:</label>
+            <input type="text" class="form-control" name="category" value="{{ job.category }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Job Description:</label>
+            <textarea class="form-control" name="description" rows="4" required>{{ job.description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="employer">Employer Name:</label>
+            <input type="text" class="form-control" name="employer" value="{{ job.employer }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Contact Email:</label>
+            <input type="email" class="form-control" name="email" value="{{ job.email }}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Job</button>
+    </form>
+{% else %}
+        <p>Access denied. You do not have permission to update jobs.</p>
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+    {% endif %}
+    <!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

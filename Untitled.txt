@@ -1,0 +1,35 @@
+in python terminal
+
+>>pip3 install virtualenv
+
+we use this if we are working as group on a project. it makes all of the requirements all the packages that are needed are contained within the project itself and not on our system. So that you can easily transfer the project around and everyone can just install the requirements into working directory and have exact setup that you had, So it makes easier to work with.
+
+>>virtualenv env
+>>env/bin/activate
+ to get inside the environment
+
+>>pip3 install flask flask-sqlalchemy
+
+
+in Python
+
+# create new file in python
+
+
+from flask import flask
+
+app = Flask(__name__)
+# this is done for referencing this file
+
+
+#indexing route so that when we browse it does'nt immediately just show 404. in flask you set up routes with the app route decorator.so app dot route
+
+@app.route('/') #url string of our route
+def index():
+	return "hello world"
+
+if __name__="__main__":
+	app.run(debug=True) # if there is any debug on the web page we can able to see
+
+>>python3 app.py
+open web page and type  localhost:5000

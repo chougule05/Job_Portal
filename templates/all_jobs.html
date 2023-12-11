@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Jobs</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+{% if 'username' in session  %}
+
+
+    <div class="container mt-5">
+        <a href="{{ url_for('logout') }}" class="btn btn-danger">Logout</a>
+        <h1 class="mb-4">All Jobs</h1>
+        <ul class="list-group">
+            {% for job in all_jobs %}
+                <li class="list-group-item">
+                    <strong>{{ job.title }}</strong> - {{ job.category }}<br>
+                    <span>Employer: {{ job.employer }} | Contact: {{ job.email }}</span><br>
+                    <a href="{{ url_for('job_details', job_id=job.id) }}" class="btn btn-primary">View Details</a>
+                    {% if 'username' in session and (session['role'] == 'employer' or session['role'] == 'admin' ) %}
+                    <a href="{{ url_for('update_job', job_id=job.id) }}" class="btn btn-warning">Update</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+
+        {% if 'username' in session and (session['role'] == 'employer' or session['role'] == 'admin' ) %}
+
+        <a href="{{ url_for('post_job') }}" class="btn btn-primary">Post a Job</a>
+        {% endif %}
+    {% else %}
+        <p>Access denied. You do not have permission to post jobs.</p>
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Login</a>
+    {% endif %}
+
+
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
